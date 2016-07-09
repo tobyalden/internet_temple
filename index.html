@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <title>INTERNET TEMPLE</title>
+  </head>
+  <body>
+    <body>
+      <iframe id="video" width="420" height="315" src="https://www.youtube.com/embed/ClRtwgr2DaU?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    </body>
+    <br>
+    <input type="text" id="embed-code" style="width: 358px;" placeholder="Enter your Google™ Hangouts on Air embed code">
+    <button type="button" id="embed-submit">Submit</button>
+    <hr>
+    <h3>Chat</h3>
+    <ul id="chat"></ul>
+    <input id="chat-input" autocomplete="off" />
+    <button  id="chat-submit">Send</button>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      $("#embed-submit").click(function() {
+        socket.emit("embed submission", $("#embed-code").val());
+        $("#embed-code").val("");
+        return false;
+      });
+      $("#chat-submit").click(function() {
+        socket.emit("chat message", $("#chat-input").val());
+        $("#chat-input").val("");
+        return false;
+      });
+
+      socket.on("embed submission", function(embedCode){
+        $('#video').attr('src', embedCode);
+      });
+      socket.on("chat message", function(msg){
+        $("#chat").append($("<li>").text(msg));
+      });
+    </script>
+  </body>
+</html>

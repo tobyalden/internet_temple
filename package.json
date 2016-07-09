@@ -1,0 +1,9 @@
+{
+  "name": "intenet-temple",
+  "version": "0.0.1",
+  "description": "a gathering place",
+  "dependencies": {
+    "express": "^4.10.2",
+    "socket.io": "^1.4.8"
+  }
+}
