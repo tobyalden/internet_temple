@@ -2,8 +2,15 @@
   "name": "intenet-temple",
   "version": "0.0.1",
   "description": "a gathering place",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "express": "^4.10.2",
     "socket.io": "^1.4.8"
+  },
+  "engines": {
+    "node": "4.4.7"
   }
 }
