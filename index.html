@@ -2,27 +2,6 @@
 <html>
   <head>
     <title>INTERNET TEMPLE</title>
-  </head>
-  <body>
-    <body>
-      <span class="about"><a href="about" target="_blank">ABOUT</a></span>
-      <img id='frame' src="images/frame.png" alt="An ornate frame." />
-      <!-- <h3>INTERNET TEMPLE</h3> -->
-      <iframe id="video" width="640" height="360" src="https://www.youtube.com/embed/DOvy38gU4Ls?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1" frameborder="0" allowfullscreen></iframe>
-    </body>
-    <br>
-    <p>
-      <!-- Click <a href="perform" target="_blank">here</a> to perform at the internet temple. -->
-    </p>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-      var socket = io();
-      // TODO: Any sort of validation at all
-      socket.on("embed submission", function(embedCode) {
-        $('#video').attr('src', embedCode);
-      });
-    </script>
     <style media="screen">
       body {
         background-repeat: repeat;
@@ -73,5 +52,27 @@
         z-index: -1;
       }
     </style>
+  </head>
+  <body>
+    <span class="about"><a href="about" target="_blank">ABOUT</a></span>
+    <img id='frame' src="images/frame.png" alt="An ornate frame." />
+    <iframe id="video" width="640" height="360" src="" frameborder="0" allowfullscreen></iframe>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function() {
+        var socket = io();
+        console.log("Welcome to INTERNET TEMPLE...")
+        socket.emit("request current embed");
+        socket.on("embed submission", function(embedCode) {
+          $('#video').attr('src', embedCode);
+        });
+        socket.on("send current embed", function(currentEmbed) {
+          console.log("...please enjoy your stay.");
+          $('#video').attr('src', currentEmbed);
+        });
+      });
+
+    </script>
   </body>
 </html>

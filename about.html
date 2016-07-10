@@ -3,7 +3,30 @@
   <head>
     <meta charset="utf-8">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <style media="screen">
+      body {
+        background-repeat: repeat;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/background.png');
+        background-size: cover;
+        background-repeat:repeat;
+        color: white;
+      }
+      #embed-code {
+        width: 358px;
+      }
+      a:link {
+          color: lightgreen;
+      }
+      a:visited {
+          color: lightgreen;
+      }
+      a:hover {
+          color: hotpink;
+      }
+    </style>
     <title>HOW TO PERFORM</title>
   </head>
   <body>
@@ -26,8 +49,9 @@
     <p>
       To play audio directly into Google Hangouts, reroute your desktop audio using <a href="http://vb-audio.pagesperso-orange.fr/Cable/">VB-Cable</a> (Windows) or <a href="https://github.com/mattingalls/Soundflower/releases/tag/2.0b2">Soundflower</a> (Mac).
     </p>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <p>
+      When you're done, you may use this button to reset INTERNET TEMPLE: <button type="button" id="reset">Reset</button>
+    </p>
     <script>
       var socket = io();
       $("#embed-submit").click(function() {
@@ -41,27 +65,9 @@
         $("#embed-submit").prop("disabled",true);
         return false;
       });
+      $("#reset").click(function() {
+        socket.emit("embed submission", "https://www.youtube.com/embed/DOvy38gU4Ls?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1");
+      });
     </script>
-    <style media="screen">
-      body {
-        background-repeat: repeat;
-        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/background.png');
-        background-size: cover;
-        background-repeat:repeat;
-        color: white;
-      }
-      #embed-code {
-        width: 358px;
-      }
-      a:link {
-          color: lightgreen;
-      }
-      a:visited {
-          color: lightgreen;
-      }
-      a:hover {
-          color: hotpink;
-      }
-    </style>
   </body>
 </html>
