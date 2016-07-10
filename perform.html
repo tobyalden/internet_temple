@@ -22,13 +22,23 @@
     </ol>
     <input type="text" id="embed-code" placeholder='<iframe width="420" height="315" src="http://www.youtube.com/embed/z_ISSC6I3JQ" frameborder="0" allowfullscreen></iframe>'>
     <button type="button" id="embed-submit">Submit</button>
+    <br>
+    <p>
+      To play audio directly into Google Hangouts, reroute your desktop audio using <a href="http://vb-audio.pagesperso-orange.fr/Cable/">VB-Cable</a> (Windows) or <a href="https://github.com/mattingalls/Soundflower/releases/tag/2.0b2">Soundflower</a> (Mac).
+    </p>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
       $("#embed-submit").click(function() {
-        socket.emit("embed submission", $("#embed-code").val());
-        $("#embed-code").val("");
+        embedCode = $("#embed-code").val();
+        // This is so gnarly lol - probably the correct way to do this is to drop it into an IFrame and then pull out the props
+        embedCode = embedCode.match(/src\=\"(.*)\" frameborder/)[1];
+        embedCode += "?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1";
+        socket.emit("embed submission", embedCode);
+        $("#embed-code").val("Thank you. You should now be streaming to INTERNET TEMPLE.");
+        $("#embed-code").attr("disabled", "disabled");
+        $("#embed-submit").prop("disabled",true);
         return false;
       });
     </script>

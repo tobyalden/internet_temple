@@ -16,6 +16,7 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
+      // TODO: Any sort of validation at all
       socket.on("embed submission", function(embedCode) {
         $('#video').attr('src', embedCode);
       });
