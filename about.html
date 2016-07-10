@@ -27,7 +27,7 @@
           color: hotpink;
       }
     </style>
-    <title>HOW TO PERFORM</title>
+    <title>ABOUT</title>
   </head>
   <body>
     <h3>WHAT IS INTERNET TEMPLE?</h3>
@@ -57,6 +57,9 @@
       $("#embed-submit").click(function() {
         embedCode = $("#embed-code").val();
         // This is so gnarly lol - probably the correct way to do this is to drop it into an IFrame and then pull out the props
+        if(!embedCode.includes("https")) {
+          embedCode = embedCode.replace("http", "https");
+        }
         embedCode = embedCode.match(/src\=\"(.*)\" frameborder/)[1];
         embedCode += "?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1";
         socket.emit("embed submission", embedCode);
