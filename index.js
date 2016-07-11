@@ -17,7 +17,7 @@ app.get('/about', function(req, res) {
 
 io.on('connection', function(socket) {
   socket.on('request current embed', function() {
-    io.emit('send current embed', currentEmbed);
+    socket.emit('send current embed', currentEmbed);
   });
   socket.on('embed submission', function(embedCode) {
     currentEmbed = embedCode;
