@@ -108,7 +108,7 @@
     <img id='frame' src="images/frame.png" alt="An ornate frame." />
     <iframe id="video" width="640" height="360" src="" frameborder="0" allowfullscreen></iframe>
     <img id='chat-window' src="images/chat-window.png" alt="A simple box." />
-    <textarea id="chat" placeholder="WELCOME TO THE INTERNET TEMPLE"></textarea>
+    <textarea id="chat">Welcome to the Internet Temple! You can use /name to set your username.</textarea>
     <img id='chat-input-window' src="images/chat-input-window.png" alt="A small, long box." />
     <input id="chat-input" type="text" autofocus="true">
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
@@ -137,17 +137,26 @@
 
           if(username === null) {
             username = currentEmbed.newUsername;
-            localStorage.setItem('internet-temple-username', currentEmbed.newUsername);
+            localStorage.setItem('internet-temple-username', username);
           }
         });
 
         socket.on("get chat message", function(message) {
-          $("#chat").val($("#chat").val() + message + "\n");
+          $("#chat").val($("#chat").val() + "\n" + message);
           $('#chat').scrollTop($('#chat')[0].scrollHeight);
         });
         $(document).keypress(function(e) {
           if(e.which == 13) {
-            socket.emit("send chat message", username + ": " + $("#chat-input").val());
+            message = $("#chat-input").val();
+            if(message.startsWith('/name')) {
+              var oldUsername = username;
+              username = message.split('/name')[1].substring(0, 30).trim();
+              localStorage.setItem('internet-temple-username', username);
+              socket.emit("send chat message", oldUsername + " changed names to " + username + ".");
+            }
+            else {
+              socket.emit("send chat message", username + ": " + message);
+            }
             $("#chat-input").val("");
           }
         });

@@ -3,6 +3,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Moniker = require('moniker');
+var names = Moniker.generator([Moniker.noun, Moniker.verb], {'glue': '_'});
 
 currentEmbed = "https://www.youtube.com/embed/DOvy38gU4Ls?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1";
 
@@ -18,14 +19,13 @@ app.get('/about', function(req, res) {
 
 io.on('connection', function(socket) {
   socket.on('request current embed', function() {
-    socket.emit('send current embed', {'currentEmbed': currentEmbed, 'newUsername': Moniker.choose()});
+    socket.emit('send current embed', {'currentEmbed': currentEmbed, 'newUsername': names.choose()});
   });
   socket.on('embed submission', function(embedCode) {
     currentEmbed = embedCode;
     io.emit('embed submission', currentEmbed);
   });
   socket.on('send chat message', function(message) {
-    console.log('message recieved: ' + message);
     io.emit('get chat message', message);
   });
 });
