@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -27,6 +26,9 @@
       a:hover {
           color: hotpink;
       }
+      body {
+        margin-left: 20px;
+      }
     </style>
     <title>ABOUT</title>
   </head>
@@ -36,11 +38,8 @@
       INTERNET TEMPLE is a place to perform music online.
     </p>
     <h3>HOW DO I PERFORM AT INTERNET TEMPLE?</h3>
-    <div class="hangout-container">
-      <div class="g-hangout" data-render="createhangout" data-hangout_type="onair" data-widget_size=175></div>
-    </div>
     <ol>
-      <li>Start a Hangout on Air using the button above</li>
+      <li>Follow <a href="https://support.google.com/youtube/answer/7083786">these instructions</a> to start a Hangouts on Air</li>
       <li>Use the <i class="fa fa-link" aria-hidden="true"></i> <strong>Links</strong> icon in the bottom right to copy the Video Embed link</li>
       <li>Paste it below and press Submit</li>
     </ol>
@@ -48,7 +47,12 @@
     <button type="button" id="embed-submit">Submit</button>
     <br>
     <p>
-      To play audio directly into Google Hangouts, reroute your desktop audio using <a href="http://vb-audio.pagesperso-orange.fr/Cable/">VB-Cable</a> (Windows) or <a href="https://github.com/mattingalls/Soundflower/releases/tag/2.0b2">Soundflower</a> (Mac).
+      To play sound directly into Google Hangouts, reroute your audio using <a href="http://vb-audio.pagesperso-orange.fr/Cable/">VB-Cable</a> (Windows) or <a href="https://github.com/mattingalls/Soundflower/releases/tag/2.0b2">Soundflower</a> (Mac).<br>
+      Try using screensharing for visuals.
+    </p>
+    <p>
+      You can also use <a href="https://www.youtube.com/live_dashboard">YouTube streaming</a> instead, which allows you to use streaming programs like <a href="https://obsproject.com/">OBS</a> for more complicated visuals.<br>
+      Just be sure to still use the video embed link.
     </p>
     <p>
       When you're done, you may use this button to reset INTERNET TEMPLE: <button type="button" id="reset">Reset</button>
