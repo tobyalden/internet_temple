@@ -155,7 +155,9 @@
               socket.emit("send chat message", oldUsername + " changed names to " + username + ".");
             }
             else {
-              socket.emit("send chat message", username + ": " + message);
+              if(message != "") {
+                socket.emit("send chat message", username + ": " + message);
+              }
             }
             $("#chat-input").val("");
           }
