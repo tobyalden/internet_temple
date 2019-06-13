@@ -2,10 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type="image/png" href="http://i.imgur.com/wds0irK.png"/>
     <style media="screen">
       body {
@@ -36,20 +34,14 @@
       INTERNET TEMPLE is a place to perform music online.
     </p>
     <h3>HOW DO I PERFORM AT INTERNET TEMPLE?</h3>
-    <div class="hangout-container">
-      <div class="g-hangout" data-render="createhangout" data-hangout_type="onair" data-widget_size=175></div>
-    </div>
     <ol>
-      <li>Start a Hangout on Air using the button above</li>
-      <li>Use the <i class="fa fa-link" aria-hidden="true"></i> <strong>Links</strong> icon in the bottom right to copy the Video Embed link</li>
-      <li>Paste it below and press Submit</li>
+        <li>Go to <a target="_blank" href="https://www.youtube.com/livestreaming">youtube.com/livestreaming</a> and start a new live stream.</li>
+        <li>Copy and paste the URL for your live stream (e.g. "https://youtu.be/sf5dI4cZOUY") into the box below.</li>
+        <li>Hit Submit. You should now be streaming on INTERNET TEMPLE!</li>
     </ol>
     <input type="text" id="embed-code" placeholder='<iframe width="420" height="315" src="http://www.youtube.com/embed/z_ISSC6I3JQ" frameborder="0" allowfullscreen></iframe>'>
     <button type="button" id="embed-submit">Submit</button>
     <br>
-    <p>
-      To play audio directly into Google Hangouts, reroute your desktop audio using <a href="http://vb-audio.pagesperso-orange.fr/Cable/">VB-Cable</a> (Windows) or <a href="https://github.com/mattingalls/Soundflower/releases/tag/2.0b2">Soundflower</a> (Mac).
-    </p>
     <p>
       When you're done, you may use this button to reset INTERNET TEMPLE: <button type="button" id="reset">Reset</button>
     </p>
@@ -61,21 +53,24 @@
     <script>
       var socket = io();
       $("#embed-submit").click(function() {
-        embedCode = $("#embed-code").val();
-        // This is so gnarly lol - probably the correct way to do this is to drop it into an IFrame and then pull out the props
-        if(!embedCode.includes("https")) {
-          embedCode = embedCode.replace("http", "https");
+        streamURL = $("#embed-code").val();
+        var re = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/
+        if(streamURL.match(re) != null) {
+            var embedURL = "https://www.youtube.com/embed/" + streamURL.match(re)[2] + "?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1"
+            console.log("sending " + embedURL);
+            socket.emit("embed submission", embedURL);
+            $("#embed-code").val("Thank you. You should now be streaming to INTERNET TEMPLE.");
+            $("#embed-code").attr("disabled", "disabled");
+            $("#embed-submit").prop("disabled",true);
+            return false;
         }
-        embedCode = embedCode.match(/src\=\"(.*)\" frameborder/)[1];
-        embedCode += "?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1";
-        socket.emit("embed submission", embedCode);
-        $("#embed-code").val("Thank you. You should now be streaming to INTERNET TEMPLE.");
-        $("#embed-code").attr("disabled", "disabled");
-        $("#embed-submit").prop("disabled",true);
-        return false;
+        else {
+            $("#embed-code").val("Not a valid URL!");
+            return false;
+        }
       });
       $("#reset").click(function() {
-        socket.emit("embed submission", "https://www.youtube.com/embed/DOvy38gU4Ls?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1");
+        socket.emit("embed submission", "https://www.youtube.com/embed/" + "DOvy38gU4Ls" + "?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1");
       });
     </script>
   </body>
