@@ -133,6 +133,7 @@ a:hover {
   border: none;
   resize: none;
   pointer-events: none;
+  overflow: hidden;
 }
 @media (max-width: 1000px) {
   /* .container {
