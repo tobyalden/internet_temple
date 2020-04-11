@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 var rug = require('random-username-generator');
 rug.setSeperator('_');
 
-currentEmbed = "https://www.youtube.com/embed/DOvy38gU4Ls?showinfo=0&autoplay=1&rel=0&controls=0&modestbranding=0&disablekb=1";
+currentEmbed = "https://www.youtube.com/embed/DOvy38gU4Ls?showinfo=0&autoplay=1&rel=0&modestbranding=0&disablekb=1&playsinline=1";
 
 app.use(express.static('public'));
 
