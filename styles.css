@@ -121,6 +121,7 @@ a:hover {
   font-size: 1.2em;
   background-color: rgba(0,0,0,0);
   width: 98%;
+  margin: 4px;
 }
 #chat-input {
   height: 24px;
@@ -131,7 +132,7 @@ a:hover {
   height: 100%;
   border: none;
   resize: none;
-  /* pointer-events: none; */
+  pointer-events: none;
 }
 @media (max-width: 1000px) {
   /* .container {
