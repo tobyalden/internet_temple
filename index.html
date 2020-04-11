@@ -4,129 +4,15 @@
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>INTERNET TEMPLE</title>
     <link rel="shortcut icon" type="image/png" href="http://i.imgur.com/wds0irK.png"/>
-    <style media="screen">
-      body {
-        background-repeat: repeat;
-        background-image: url("images/background.png");
-        background-size: cover;
-        background-repeat:repeat;
-        margin: 0px;
-        padding: 0px;
-      }
-      .container {
-          width: 100vw;
-          height: 100vh;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-direction: column;
-
-      }
-      h3 {
-        text-align: center;
-      }
-      p {
-        text-align: center;
-      }
-      a:link {
-          color: white;
-          text-decoration:none;
-      }
-      a:visited {
-          color: white;
-      }
-      a:hover {
-          color: hotpink;
-      }
-      #frame {
-        pointer-events: none;
-        position: absolute;
-        top: 0px;
-        width: 100%;
-      }
-      #video {
-        /* pointer-events: auto; */
-        width: 90%;
-        height: 100%;
-      }
-      .video-container, .chat-container, .chat-input-container {
-          width: 52%;
-      }
-      .video-container {
-          height: 29.25vw;
-          /* height: 800px; */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          /* pointer-events: auto; */
-      }
-    .chat-container, .chat-input-container {
-        border: 1px solid white;
-        border-radius: 6px;
-        background-color: black;
-    }
-
-    .chat-container {
-        margin-top: 8vw;
-        height: 100%;
-        min-height: 100px;
-        overflow: hidden;
-        /* pointer-events: none; */
-    }
-    .chat-input-container {
-        margin-top: 8px;
-        margin-bottom: 40px;
-    }
-    #chat-input, #chat {
-        color: white;
-        font-family: monospace;
-        font-size: 1.2em;
-        background-color: rgba(0,0,0,0);
-        width: 98%;
-    }
-    #chat-input {
-        height: 24px;
-        border: none;
-        outline: none;
-    }
-    #chat {
-        height: 100%;
-        border: none;
-        resize: none;
-        /* pointer-events: none; */
-    }
-    @media (max-width: 1000px) {
-        .container {
-            width: 98vw;
-            height: 80vh;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .video-container, .chat-container, .chat-input-container {
-            width: 100%;
-        }
-        .video-container {
-            width: 100vw;
-            height: 56vw;
-            min-height: 56vw;
-            /* height: 800px; */
-        }
-        .chat-container {
-            margin-top: 16vw;
-        }
-        .chat-input-container {
-            margin-bottom: 8px;
-        }
-    }
-</style>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
   </head>
   <body>
-      <div class="container">
           <div class="video-container">
               <iframe id="video" src="" frameborder="0"></iframe>
               <img id='frame' src="images/frame.png" alt="An ornate frame." />
           </div>
+          <div class="text-container">
+
           <div class="chat-container">
               <textarea id="chat">
 ** Welcome to the Internet Temple!
