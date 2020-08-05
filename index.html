@@ -8,7 +8,7 @@
   </head>
   <body>
           <div class="video-container">
-              <iframe id="video" src="" frameborder="0"></iframe>
+              <video id="video" controls></video>
               <img id='frame' src="images/frame.png" alt="An ornate frame." />
           </div>
           <div class="text-container">
@@ -25,8 +25,31 @@
               <input id="chat-input" type="text" autofocus="true" placeholder="Enter chat messages here">
           </div>
       </div>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var video = document.getElementById('video');
+      var videoSrc = 'http://stream.saladbowl.zone/internettemple/stream/index.m3u8';
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+          console.log('hello')
+          video.play();
+        });
+      }
+      else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+        video.addEventListener('loadedmetadata', function() {
+          console.log('hello')
+
+          video.play();
+        });
+      }
+    </script>
+     
     <script>
     window.addEventListener("orientationchange", function() {
         if (window.orientation == 270 || window.orientation == 90) {
@@ -76,11 +99,11 @@
         console.log("Welcome to INTERNET TEMPLE...")
         socket.emit("request current embed");
         socket.on("embed submission", function(embedCode) {
-            $('#video').attr('src', embedCode);
+            // $('#video').attr('src', embedCode);
         });
         socket.on("send current embed", function(currentEmbed) {
           console.log("...please enjoy your stay.");
-          $('#video').attr('src', currentEmbed.currentEmbed);
+          // $('#video').attr('src', currentEmbed.currentEmbed);
 
           if(username === null) {
             username = currentEmbed.newUsername;
